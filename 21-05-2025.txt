@@ -1,0 +1,91 @@
+SELECT * FROM Products
+WHERE Price BETWEEN 10 AND 20;
+
+show tables from vit;
+use vit;
+select * from worker;
+select min(salary) from worker;
+select max(salary) from worker;
+select sum(salary) from worker;
+select avg(salary) from worker;
+select count(worker_id) from worker;
+CREATE TABLE Worker1 (
+	WORKER_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	FIRST_NAME CHAR(25),
+	LAST_NAME CHAR(25),
+	SALARY int(15),
+	JOINING_DATE DATETIME,
+	DEPARTMENT CHAR(25)
+);
+select distinct(department) from worker;
+INSERT INTO Worker 
+    (WORKER_ID, FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT) 
+VALUES
+    (101, 'Monika', 'Arora', 100000, '2020-02-14 09:00:00', 'HR'),
+    (102, 'Niharika', 'Verma', 80000, '2011-06-14 09:00:00', 'Admin'),
+    (103, 'Vishal', 'Singhal', 300000, '2020-02-14 09:00:00', 'HR'),
+    (104, 'Amitabh', 'Singh', 500000, '2020-02-14 09:00:00', 'Admin'),
+    (105, 'Vivek', 'Bhati', 500000, '2011-06-14 09:00:00', 'Admin'),
+    (106, 'Vipul', 'Diwan', 200000, '2011-06-14 09:00:00', 'Account'),
+    (107, 'Satish', 'Kumar', 75000, '2020-01-14 09:00:00', 'Account'),
+    (108, 'Geetika', 'Chauhan', 90000, '2011-04-14 09:00:00', 'Admin');
+SELECT department FROM worker
+UNION
+SELECT department FROM worker1;
+
+SELECT department FROM worker
+UNION all
+SELECT department FROM worker1;
+
+SELECT worker_id, department FROM worker
+WHERE department='hr'
+UNION
+SELECT worker_id, department FROM worker1
+WHERE department='hr';
+
+SELECT worker_id, department FROM worker
+WHERE department='hr'
+UNION all
+SELECT worker_id, department FROM worker1
+WHERE department='hr';
+
+SELECT first_name,salary,
+CASE
+    When salary < 300000 THEN 'rich'
+    WHEN salary >300000 THEN 'normal'
+    when salary>10000 and salary<100000  then 'poor'
+    ELSE 'not correct '
+END 
+AS status_checked
+FROM worker;
+
+select * from worker where salary<=200000 order by salary;
+select * from worker where salary<=200000 order by salary desc;
+
+select * from worker where first_name like '_i%l';
+
+select * from worker where first_name like '__i%';
+select * from worker where first_name like 'sa%';
+select * from worker where first_name like '___l';
+select * from worker where first_name like '_sa%';
+
+
+create view adminteam as select * from worker where department='admin' and salary >200000;
+create view hrteam as select * from worker where department='hr' and salary >200000;
+select   * from adminteam;
+create or replace view adminteam as select * from worker where department='admin' and salary >200000;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

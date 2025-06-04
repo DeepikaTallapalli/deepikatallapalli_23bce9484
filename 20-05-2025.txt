@@ -1,0 +1,105 @@
+create database friday;
+use friday;
+create table category(cid int primary key,cname varchar(25),cdetails varchar(20));
+insert into category values(101,'electronics','abcd');
+insert into category values(102,'furniture','abcdefg');
+select * from category;
+drop table products;
+create table products(
+    pid int primary key,
+    pname varchar(20),
+    pdetails varchar(20),
+    cid int,
+    foreign key (cid) references category(cid)
+);
+desc products;
+insert into products values(501,'samsung s23','128gb',101);
+insert into products values(502,'vivos23','64gb',102);
+select * from products;
+
+create database friday;
+drop  database friday;
+use friday;
+create table category(cid int primary key,cname varchar(25),cdetails varchar(20));
+insert into category values(101,'electronics','abcd');
+insert into category values(102,'furniture','abcdefg');
+select * from category;
+drop table products;
+create table products(
+    pid int primary key,
+    pname varchar(20),
+    pdetails varchar(20),
+    cid int,
+    foreign key (cid) references category(cid) on delete cascade 
+);
+delete from category where cid=101;
+desc products;
+insert into products values(501,'iphone s23','128gb',101);
+insert into products values(502,'vivos23','64gb',102);
+select * from products;
+
+create database friday;
+drop  database friday;
+use friday;
+create table category(cid int primary key,cname varchar(25),cdetails varchar(20));
+insert into category values(101,'electronics','abcd');
+insert into category values(102,'furniture','abcdefg');
+select * from category;
+drop table products;
+create table products(
+    pid int primary key,
+    pname varchar(20),
+    pdetails varchar(20),
+    cid int,
+    foreign key (cid) references category(cid) on update cascade 
+);
+delete from category where cid=101;
+desc products;
+insert into products values(501,'iphone s23','128gb',101);
+select * from products;
+
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255) NOT NULL,
+    Age int
+);
+ALTER TABLE Persons
+MODIFY Age int NOT NULL;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
