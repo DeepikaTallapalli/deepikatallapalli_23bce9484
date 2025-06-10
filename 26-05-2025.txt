@@ -1,0 +1,266 @@
+package crud_operation;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+public class CRUD_operation {
+
+    public static void main(String[] args) {
+        CRUD_operation objTest = new CRUD_operation();
+        objTest.create_data("104", "Manoj", 95);
+        objTest.create_data("105", "Karthick", 75);
+    }
+
+    public void create_data(String sl_no, String name, int mark) {
+        DBconnection obj_DB_Connection = new DBconnection(); // Make sure class name matches
+        Connection connection = obj_DB_Connection.get_connection();
+        PreparedStatement ps = null;
+
+        try {
+            ps = connection.prepareStatement("INSERT INTO student VALUES (?, ?, ?)");
+            ps.setString(1, sl_no);
+            ps.setString(2, name);
+            ps.setInt(3, mark);
+
+            System.out.println("Executing: " + ps);
+            ps.executeUpdate();
+            System.out.println("Data inserted successfully.");
+        } catch (Exception e) {
+            System.out.println("Error during insertion:");
+            e.printStackTrace();
+        }
+    }
+}
+
+
+
+package crud_operation;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+public class CRUD_Operation {
+
+    public static void main(String[] args) {
+        CRUD_Operation objTest = new CRUD_Operation();
+        objTest.create_data("104", "Manoj", 95);
+        objTest.create_data("105", "Karthick", 75);
+    }
+    
+
+    public void create_data(String sl_no, String name, int mark) {
+        DBconnection obj_DB_Connection = new DBconnection(); // Make sure class name matches
+        Connection connection = obj_DB_Connection.get_connection();
+        PreparedStatement ps = null;
+
+        try {
+            ps = connection.prepareStatement("INSERT INTO student VALUES (?, ?, ?)");
+            ps.setString(1, sl_no);
+            ps.setString(2, name);
+            ps.setInt(3, mark);
+
+            System.out.println("Executing: " + ps);
+            ps.executeUpdate();
+            System.out.println("Data inserted successfully.");
+        } catch (Exception e) {
+            System.out.println("Error during insertion:");
+            e.printStackTrace();
+        }
+    }
+    public void read_data(){
+    	DB_Connection obj_DB_Connection=new DB_Connection();
+    	Connection connection=obj_DB_Connection.get_connection();
+    	PreparedStatement ps=null;
+    	ResultSet rs=null;
+    	try {
+    		String query="select * from user";
+    		ps=connection.prepareStatement(query);
+    		//ps.setString(1, sl_no);
+    		System.out.println(ps);
+    		rs=ps.executeQuery();
+    		while(rs.next()){
+    		System.out.println("Sl no -"+rs.getInt(1));
+    		System.out.println("name -"+rs.getString(2));
+    		System.out.println("email -"+rs.getInt(3));
+    		System.out.println("---------------");
+    		}
+    	} catch (Exception e) {
+    		System.out.println(e);
+    	}
+    }
+}
+
+
+package crud_operation;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+public class CRUD_Operation {
+
+    public static void main(String[] args) {
+        CRUD_Operation objTest = new CRUD_Operation();
+        objTest.read_data;
+        objTest.update_data("2","22,"jawad","jawad@gmail.com");
+    }
+    
+
+    public void create_data(String sl_no, String name, int mark) {
+        DBconnection obj_DB_Connection = new DBconnection(); // Make sure class name matches
+        Connection connection = obj_DB_Connection.get_connection();
+        PreparedStatement ps = null;
+
+        try {
+            ps = connection.prepareStatement("INSERT INTO student VALUES (?, ?, ?)");
+            ps.setString(1, sl_no);
+            ps.setString(2, name);
+            ps.setInt(3, mark);
+
+            System.out.println("Executing: " + ps);
+            ps.executeUpdate();
+            System.out.println("Data inserted successfully.");
+        } catch (Exception e) {
+            System.out.println("Error during insertion:");
+            e.printStackTrace();
+        }
+    }
+    public void read_data(){
+    	DB_Connection obj_DB_Connection=new DB_Connection();
+    	Connection connection=obj_DB_Connection.get_connection();
+    	PreparedStatement ps=null;
+    	ResultSet rs=null;
+    	try {
+    		String query="select * from user";
+    		ps=connection.prepareStatement(query);
+    		//ps.setString(1, sl_no);
+    		System.out.println(ps);
+    		rs=ps.executeQuery();
+    		while(rs.next()){
+    		System.out.println("Sl no -"+rs.getInt(1));
+    		System.out.println("name -"+rs.getString(2));
+    		System.out.println("email -"+rs.getInt(3));
+    		System.out.println("---------------");
+    		}
+    	} catch (Exception e) {
+    		System.out.println(e);
+    	}
+    }
+    public void update_data(String sl_no,String new_sl_no,String name,String email){
+    	DB_Connection obj_DB_Connection=new DB_Connection();
+    	Connection connection=obj_DB_Connection.get_connection();
+    	PreparedStatement ps=null;
+    	try {
+    		String query="update user set sl_no=?,name=?,email=? where sl_no=?";
+    		ps=connection.prepareStatement(query);
+    		ps.setString(1, new_sl_no);
+    		ps.setString(2, name);
+    		ps.setString(3, email);
+    		ps.setString(4, sl_no);
+    		System.out.println(ps);
+    		ps.executeUpdate();
+    	} catch (Exception e) {
+    		System.out.println(e);
+    	}
+    }
+
+}
+
+
+package crud_operation;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class CRUD_Operation {
+
+    public static void main(String[] args) {
+        CRUD_Operation objTest = new CRUD_Operation();
+        objTest.read_data();
+        objTest.update_data("2", "22", "jawad", "jawad@gmail.com");
+        objTest.delete_data("22");
+    }
+
+    public void create_data(String sl_no, String name, int mark) {
+        DBconnection obj_DB_Connection = new DBconnection();
+        Connection connection = obj_DB_Connection.get_connection();
+        PreparedStatement ps = null;
+
+        try {
+            ps = connection.prepareStatement("INSERT INTO student VALUES (?, ?, ?)");
+            ps.setString(1, sl_no);
+            ps.setString(2, name);
+            ps.setInt(3, mark);
+
+            System.out.println("Executing: " + ps);
+            ps.executeUpdate();
+            System.out.println("Data inserted successfully.");
+        } catch (Exception e) {
+            System.out.println("Error during insertion:");
+            e.printStackTrace();
+        }
+    }
+
+    public void read_data() {
+        DBconnection obj_DB_Connection = new DBconnection();
+        Connection connection = obj_DB_Connection.get_connection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            String query = "SELECT * FROM student";
+            ps = connection.prepareStatement(query);
+            System.out.println(ps);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                System.out.println("Sl no - " + rs.getInt(1));
+                System.out.println("Name  - " + rs.getString(2));
+                System.out.println("Email - " + rs.getInt(3));
+                System.out.println("---------------");
+            }
+        } catch (Exception e) {
+            System.out.println("Error during reading:");
+            e.printStackTrace();
+        }
+    }
+
+    public void update_data(String sl_no, String new_sl_no, String name, String email) {
+        DBconnection obj_DB_Connection = new DBconnection();
+        Connection connection = obj_DB_Connection.get_connection();
+        PreparedStatement ps = null;
+
+        try {
+            String query = "UPDATE user SET sl_no = ?, name = ?, email = ? WHERE sl_no = ?";
+            ps = connection.prepareStatement(query);
+            ps.setString(1, new_sl_no);
+            ps.setString(2, name);
+            ps.setString(3, email);
+            ps.setString(4, sl_no);
+            System.out.println(ps);
+            ps.executeUpdate();
+            System.out.println("Data updated successfully.");
+        } catch (Exception e) {
+            System.out.println("Error during update:");
+            e.printStackTrace();
+        }
+    }
+
+    public void delete_data(String sl_no) {
+        DBconnection obj_DB_Connection = new DBconnection();
+        Connection connection = obj_DB_Connection.get_connection();
+        PreparedStatement ps = null;
+
+        try {
+            String query = "DELETE FROM user WHERE sl_no = ?";
+            ps = connection.prepareStatement(query);
+            ps.setString(1, sl_no);
+            System.out.println(ps);
+            ps.executeUpdate();
+            System.out.println("Data deleted successfully.");
+        } catch (Exception e) {
+            System.out.println("Error during deletion:");
+            e.printStackTrace();
+        }
+    }
+}
+
