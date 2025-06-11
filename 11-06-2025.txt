@@ -1,0 +1,135 @@
+package Connection;
+
+import org.bson.Document;
+
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+import java.util.Arrays;
+
+public class MongoDB {
+    public static void main(String[] args) {
+        // Create MongoDB client
+        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
+
+        // Get database and collection
+        MongoDatabase database = mongoClient.getDatabase("myDB");
+        MongoCollection<Document> collection = database.getCollection("sampleCollection");
+        System.out.println("***	Descending order***");
+        FindIterable<Document> allDocuments =collection.find().sort(new BasicDBObject("First_Name","Mahesh);
+        for (Document document:allDocuments) {
+            System.out.println(document);
+        }
+
+           }
+}
+
+
+
+
+
+package Connection;
+
+import org.bson.Document;
+
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+public class MongoDB {
+    public static void main(String[] args) {
+        // Create MongoDB client
+        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
+
+        // Get database and collection
+        MongoDatabase database = mongoClient.getDatabase("vit");
+        MongoCollection<Document> collection = database.getCollection("products");
+
+        // Create query to filter products with price between 700 and 900
+        Document priceRangeQuery = new Document("price", new Document("$gte", 700).append("$lte", 900));
+
+        // Execute query
+        FindIterable<Document> products = collection.find(priceRangeQuery);
+
+        // Print results
+        System.out.println("***Products with price between 700 and 900***");
+        for (Document product : products) {
+            System.out.println(product.toJson());
+        }
+
+       }
+}
+
+
+package Connection;
+
+import org.bson.Document;
+import com.mongodb.client.MongoClient;
+import com.mongodb.cli
+
+ent.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.AggregateIterable;
+
+import java.util.Arrays;
+
+public class MongoDB {
+    public static void main(String[] args) {
+        // Create MongoDB client
+        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
+
+        // Get database and collection
+        MongoDatabase database = mongoClient.getDatabase("vit");
+        MongoCollection<Document> collection = database.getCollection("products");
+
+        // Aggregation pipeline to calculate average price
+        AggregateIterable<Document> result = collection.aggregate(Arrays.asList(
+            group(null,avg("avgPrice","$price"))));        // Print the average price
+        System.out.println("***Average price of all products***");
+        for (Document doc : result) {
+            System.out.println("Average Price: " + doc.get("avgPrice"));
+        }
+}
+}
+
+
+
+package Connection;
+
+import org.bson.Document;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Aggregates.*;
+import static com.mongodb.client.model.Accumulators.*;
+import static com.mongodb.client.model.Sorts.*;
+import java.util.Arrays;
+
+public class MongoDB {
+    public static void main(String[] args) {
+        try (MongoClient mongo = MongoClients.create("mongodb://localhost:27017")) {
+            MongoDatabase db = mongo.getDatabase("vit");
+            MongoCollection<Document> sales = db.getCollection("sales");
+            
+            sales.aggregate(Arrays.asList(
+                group("$item", 
+                    max("maxPrice", "$price"),
+                    addToSet("sizes", "$size")
+                ),
+                sort(descending("maxPrice"))
+            )).forEach((Document doc) -> {
+                System.out.printf("%-10s: $%2d (Sizes: %s)%n",
+                    doc.getString("_id"),
+                    doc.getInteger("maxPrice"),
+                    doc.getList("sizes", String.class));
+            });
+        }
+    }
+}
