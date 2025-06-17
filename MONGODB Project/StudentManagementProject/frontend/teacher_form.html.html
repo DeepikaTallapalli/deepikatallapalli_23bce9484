@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Teacher Dashboard - Marks Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eef3f8;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    input, button {
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Teacher Dashboard - Marks Management</h1>
+
+    <!-- Add / Update Marks -->
+    <div class="card">
+      <h3>Add / Update Student Marks</h3>
+      <form action="http://localhost:8080/api/teacher/updateMarks" method="POST">
+        <input name="rollNumber" placeholder="Roll Number" required>
+        <input name="subject" placeholder="Subject" required>
+        <input name="marks" type="number" placeholder="Marks" required>
+        <button type="submit">Add / Update Marks</button>
+      </form>
+    </div>
+
+    <!-- View Marks -->
+    <div class="card">
+      <h3>View Student Marks</h3>
+      <form action="http://localhost:8080/api/teacher/viewMarks" method="GET">
+        <input name="rollNumber" placeholder="Roll Number" required>
+        <button type="submit">View Marks</button>
+      </form>
+    </div>
+
+    <!-- Delete Marks -->
+    <div class="card">
+      <h3>Delete Student Marks</h3>
+      <form action="http://localhost:8080/api/teacher/deleteMarks" method="POST">
+        <input name="rollNumber" placeholder="Roll Number" required>
+        <input name="subject" placeholder="Subject (or 'all')" required>
+        <button type="submit">Delete Marks</button>
+      </form>
+    </div>
+
+    <!-- Exit -->
+    <div class="card">
+      <form action="index.html">
+        <button type="submit">Back to Home</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

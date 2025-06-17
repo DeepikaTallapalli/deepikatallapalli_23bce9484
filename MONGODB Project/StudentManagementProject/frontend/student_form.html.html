@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Management Portal</title>
+</head>
+<body>
+  <h1>Student Management Portal</h1>
+
+  <h2>Add Student</h2>
+  <form id="addForm">
+    <input name="name" placeholder="Name" required><br>
+    <input name="rollNumber" placeholder="Roll Number" required><br>
+    <input name="branch" placeholder="Branch" required><br>
+    <input name="year" type="number" placeholder="Year" required><br>
+    <input name="email" type="email" placeholder="Email" required><br>
+    <button type="submit">Add</button>
+  </form>
+
+  <h2>Update Student Email</h2>
+  <form id="updateForm">
+    <input name="rollNumber" placeholder="Roll Number" required><br>
+    <input name="newEmail" type="email" placeholder="New Email" required><br>
+    <button type="submit">Update</button>
+  </form>
+
+  <h2>Delete Student</h2>
+  <form id="deleteForm">
+    <input name="rollNumber" placeholder="Roll Number" required><br>
+    <button type="submit">Delete</button>
+  </form>
+
+  <h2>Search Student</h2>
+  <form id="searchForm">
+    <input name="rollNumber" placeholder="Roll Number"><br>
+    <input name="name" placeholder="Name"><br>
+    <button type="submit">Search</button>
+  </form>
+
+  <h2>View All Students</h2>
+  <button id="viewAll">View All</button>
+
+  <pre id="responseArea"></pre>
+
+  <script>
+    const baseUrl = 'http://localhost:8080';
+
+    function postForm(url, form, callback) {
+      fetch(baseUrl + url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form))
+      })
+      .then(res => res.text())
+      .then(data => callback(data))
+      .catch(err => callback("Error: " + err));
+    }
+
+    function getForm(url, form, callback) {
+      const query = new URLSearchParams(new FormData(form)).toString();
+      fetch(baseUrl + url + '?' + query)
+        .then(res => res.json())
+        .then(data => callback(JSON.stringify(data, null, 2)))
+        .catch(err => callback("Error: " + err));
+    }
+
+    document.getElementById('addForm').onsubmit = e => {
+      e.preventDefault();
+      postForm('/addStudent', e.target, show);
+    };
+
+    document.getElementById('updateForm').onsubmit = e => {
+      e.preventDefault();
+      postForm('/updateStudent', e.target, show);
+    };
+
+    document.getElementById('deleteForm').onsubmit = e => {
+      e.preventDefault();
+      postForm('/deleteStudent', e.target, show);
+    };
+
+    document.getElementById('searchForm').onsubmit = e => {
+      e.preventDefault();
+      getForm('/searchStudent', e.target, show);
+    };
+
+    document.getElementById('viewAll').onclick = () => {
+      fetch(baseUrl + '/api/students/view')
+        .then(res => res.json())
+        .then(data => show(JSON.stringify(data, null, 2)))
+        .catch(err => show("Error: " + err));
+    };
+
+    function show(msg) {
+      document.getElementById('responseArea').textContent = msg;
+    }
+  </script>
+</body>
+</html>
